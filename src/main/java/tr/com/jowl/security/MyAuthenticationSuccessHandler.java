@@ -55,9 +55,12 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 
         if (isAdmin(roles)) {
             return "/admin";
-        } else if (isUser(roles)) {
-            return "/home";
-        } else {
+        } else if (isTutor(roles)) {
+            return "/tutors/home";
+        } else if (isStudent(roles)) {
+        	return "/student/home";
+        }
+        else {
             return "/login?error";
         }
     }
@@ -72,11 +75,15 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         return redirectStrategy;
     }
 
-    private boolean isUser(List<String> roles) {
-        return roles.contains("ROLE_USER");
+    private boolean isTutor(List<String> roles) {
+        return roles.contains("ROLE_TUTOR");
     }
 
     private boolean isAdmin(List<String> roles) {
         return roles.contains("ROLE_ADMIN");
+    }
+    
+    private boolean isStudent(List<String> roles) {
+        return roles.contains("ROLE_STUDENT");
     }
 }

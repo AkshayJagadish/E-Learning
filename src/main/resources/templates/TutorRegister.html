@@ -12,8 +12,10 @@
     <div class="container">
         <div class="login-register-form-section">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="col-xs-6"><a th:href="@{/login}">Login</a></li>
-                <li class="col-xs-6"><a class="active" href="#register" data-toggle="tab">Register</a></li>
+                <li class="col-xs-4"><a th:href="@{/login}">Login</a></li>
+                <li class="active col-xs-4"><a class="active" th:href="@{/tutor/register}" data-toggle="tab">Register as Tutor</a></li>
+                <li class="col-xs-4"><a class="active" th:href="@{/student/register}">Register as Student</a></li>
+                
 
             </ul>
             <div class="tab-content">
@@ -41,7 +43,7 @@
                         <strong>Error!</strong> Unexpected error !!!
                     </div>
 
-                    <form id="registerForm" th:object="${reqUser}" th:action="@{/user/register}" method="post"
+                    <form id="registerForm" th:object="${reqUser}" th:action="@{/user/tutor/register}" method="post"
                           class="form-horizontal">
                         <div class="form-group ">
                             <div class="input-group">
@@ -84,9 +86,7 @@
 </div>
 <div id="footerSeparator"></div>
 
-<footer>
-    <div th:replace="fragments/footer :: footer">&copy; 2016 ibrahim Karayel</div>
-</footer>
+
 <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 <script>

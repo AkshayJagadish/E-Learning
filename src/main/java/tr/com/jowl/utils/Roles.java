@@ -8,7 +8,7 @@ package tr.com.jowl.utils;
  * Date 4/27/2018.
  */
 public enum Roles {
-    ROLE_ADMIN(1), ROLE_USER(2);
+    ROLE_ADMIN(1), ROLE_TUTOR(2), ROLE_STUDENT(3);
     private int value;
 
     Roles(int value) {

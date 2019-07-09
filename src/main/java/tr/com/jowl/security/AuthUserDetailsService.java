@@ -71,7 +71,9 @@ public class AuthUserDetailsService implements UserDetailsService {
         if (role == 1) {
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else if (role == 2) {
-            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authList.add(new SimpleGrantedAuthority("ROLE_TUTOR"));
+        } else if (role == 3) {
+        	authList.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
         }
 
         return authList;

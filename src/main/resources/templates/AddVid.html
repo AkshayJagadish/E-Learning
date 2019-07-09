@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <div th:replace="fragments/header :: header-css"></div>
+    <link rel="stylesheet" href="/css/profileCard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<table><tr><td th:text="${contextcourse.id}"></td><td th:text="${contextcourse.userId}"></td></tr></table>
+<h3>Paste the link of a video tutorial from youtube.</h3>
+<form action="javascript:youtube_parser()"><input type="text" id="url"></input>
+<button>Extract ID</button>
+<p id="demo">This is a demonstration.</p>
+</form>
+
+					<form th:object="${reqVid}" th:action="@{/task/saveVid}" method="post">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                
+                                <input type="text" th:value="${contextcourse.id}" th:name="CourseId" th:id="CourseId" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Course Id"/>      
+                            </div>
+                            <div class="form-group">
+                                
+                                <input type="text" th:value="${contextcourse.taskName}" th:name="CourseName" th:id="CourseName" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Course Name"/>      
+                            </div>   
+                            
+                            <div class="form-group">
+                                
+                                <input type="text" th:value="${currentUser.username}" th:name="instructor" th:id="instructor" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Instructor Name"/>      
+                            </div>   
+                            
+                            <div class="form-group">
+                                
+                                <input type="text" th:name="youID" th:id="youID" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Youtube Video ID"/>      
+                            </div>            
+                            <div class="float-right btn-send">
+                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                    Upload Video Tutorial
+                                </button>
+                            </div>
+                        </div>
+                        <br/>
+                    </form>
+<script type="text/javascript">
+
+function a()
+{
+    document.getElementById("demo").innerHTML = "Hello JavaScript!";
+
+	}
+function youtube_parser(){
+	var url=document.getElementById("url").value;
+	var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+	var match = url.match(regExp);
+	if (match && match[2].length == 11) {
+		document.getElementById("demo").innerHTML = match[2];
+		document.getElementById("youID").value = match[2];
+//document.write('<iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/vVX1n7pHM3c}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe>');
+	  
+	} else {
+	  //error
+	}
+}
+</script>
+                            
+
+</body>
+</html>

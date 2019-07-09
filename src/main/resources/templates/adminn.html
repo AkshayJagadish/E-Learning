@@ -8,9 +8,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<a th:href="@{/home/courses}">Courses</a>
+<a th:href="@{/home}">Home</a>
+<div th:replace="fragments/header :: header"></div>
 
-                    <h1 class="content-title"><tr th:each="User : ${allUser}"><td th:text="${User.email}"></td></tr></h1>
+<div class="tab-content">
 
 
+    <div class="tab-pane active" id="addTaskTab">
+        <div class="container">
+            <div class="content-container clearfix">
+                <div class="row" style="position:relative">
+					<h1>	Welcome <tr th:each="Inst : ${allUser}"><td th:text="${Inst.username}"></td></tr>! (Admin)</h1>  <!--  <tr th:each="Inst : ${allinst}"><td th:text="${Inst.username}"></td></tr>     -->            
+                    <h2><a th:href="@{/admin/course_manager}">	    Manage Courses</a></h2>
+                    <h2><a th:href="@{/admin/users_manager}">	    Manage Users</a></h2>
+                    <h2><a th:href="@{/admin/registered_courses}">	    Manage Registered Courses</a></h2>
+               
+                                   
+
+        
+                  
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer>
+    <div class="separator" th:replace="fragments/footer :: footer">&copy; 2016 pironix</div>
+</footer>
+
+<script type="text/javascript">
+    $(function () {
+        $('#startDatePicker').datetimepicker({
+            defaultDate: 'now',
+            viewMode: 'days',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+
+</script>
+<script>
+    $('#modal-toTrash').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        $('#modal-toTrashHiddenId').val($(this).find('.btn-ok').attr('href'));
+    });
+
+    $('#modal-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        $('#modal-deleteHiddenId').val($(this).find('.btn-ok').attr('href'));
+    });
+
+</script>
 </body>
 </html>

@@ -38,7 +38,7 @@ class UserServiceImplTest {
         User user;
         for (int i = 0; i < 6; i++) {
             String pass = PassEncoding.getInstance().passwordEncoder.encode("test_passw" + i);
-            user = new User("test_user_" + i, pass, "test" + i + "@gmail.com", Roles.ROLE_USER.getValue());
+            user = new User("test_user_" + i, pass, "test" + i + "@gmail.com", Roles.ROLE_TUTOR.getValue());
             userList.add(user);
         }
 

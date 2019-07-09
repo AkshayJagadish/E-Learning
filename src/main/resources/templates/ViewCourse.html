@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <div th:replace="fragments/header :: header-css"></div>
+    <link rel="stylesheet" href="/css/profileCard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<span th:each="vid : ${AllVids}" th:if="${vid.CourseId == contextcourse.id}">
+	<span><iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{url}(url=${vid.youID})}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe></span><br>
+</span>
+
+
+
+
+</body>
+</html>

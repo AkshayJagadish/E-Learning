@@ -4,38 +4,20 @@
     <title>Home</title>
     <meta name="description" content="spring-boot thymeleaf | home ">
     <div th:replace="fragments/header :: header-css"></div>
-    <link rel="stylesheet" href="/css/profileCard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<a th:href="@{/home/courses}">Courses</a>
-<a th:href="@{/home}">Home</a>
+
+
 <div th:replace="fragments/header :: header"></div>
 
 <div class="tab-content">
 
-
-    <div class="tab-pane active" id="addTaskTab">
+   <div class="tab-pane active" id="addTaskTab">
         <div class="container">
             <div class="content-container clearfix">
-                <div class="row" style="position:relative">
-                    <h1 class="content-title">Profile</h1>
-                    
-                    <div class="card">
-					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="John" style="width:150px; height:150px;">
-					  <h1>[[${#httpServletRequest.remoteUser}]]</h1>
-					  <span th:text="${allUser.email}"></span>
-					  
-					  <div style="margin: 24px 0;">
-					    <a href="#"><i class="fa fa-dribbble"></i></a> 
-					    <a href="#"><i class="fa fa-twitter"></i></a>  
-					    <a href="#"><i class="fa fa-linkedin"></i></a>  
-					    <a href="#"><i class="fa fa-facebook"></i></a> 
-					  </div>
-					  <br>
-  					<h2>Create a course</h2>
-					</div>
-                    <!--star operations messages-->
+                <div class="row">
+                    <h1 class="content-title">Users</h1><!--  <a th:href="@{/home}">Home</a>-->
+                    <star operations messages-->
                     <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert"
                                 aria-hidden="true">&times;
@@ -67,39 +49,7 @@
                         Course Sent to Trash Box
                     </div>
                     <!--end of messages-->
-                    <form th:object="${reqTask}" th:action="@{/task/saveTask}" method="post">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input id="taskName" th:field="*{taskName}" type="text" class="form-control"
-                                       required="required"
-                                       placeholder="Course Name"/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <input th:field="*{description}" type="text" class="form-control" required="required"
-                                       placeholder="Description"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4  input-group date" id='startDatePicker'>
-                                    <input th:field="*{taskDate}" class="form-control" name="taskDate"
-                                           required="required"
-                                           placeholder="Date" id="taskDate"/>
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar">
-                                    </span>
-                                </span>
-                                </div>
-                            </div>
-                            <textarea class="form-control" th:field="*{content}" placeholder="Details"
-                                      required="required"></textarea>
-                            <div class="float-right btn-send">
-                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                                    Create
-                                </button>
-                            </div>
-                        </div>
-                        <br/>
-                    </form>
+                   
                 </div>
                 <span class="help-block"></span>
                 <!--start Trash Task tab-->
@@ -109,35 +59,34 @@
                             <table class="table table-bordered  table-striped table-responsive">
                                 <thead>
                                 <tr class="btn-info">
-                                    <th>Course Name</th>
-                                    <th>Description</th>
-                                    <th>Course Date</th>
-                                    <th>Details</th>
-                                    <th>Operation</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:if="${#lists.isEmpty(allTask)}" class="btn-default">
                                     <td colspan="5" align="center">No Course Entered Yet!!!</td>
                                 </tr>
-                                <tr th:each="task : ${allTask}">
-                                    <td th:text="${task.taskName}"></td>
-                                    <td th:text="${task.description}"></td>
-                                    <td th:text="${task.taskDate}"></td>
-                                    <td th:text="${task.content}"></td>
-                                    <td th:hidden="${task.id}"></td>
-                                    <td align="center">
-                                        <a th:href="@{/task/edit/{id}(id=${task.id})}">
+                                <tr th:each="User : ${allUser}">
+                                    <td th:text="${User.username}"></td>
+                                    <td th:text="${User.email}"></td>
+                                    <td th:text="${User.role}"></td>
+                                    
+                                    
+          <!-- Important -->            <td align="center">
+                                        <a th:href="@{/user/edit/{id}(id=${User.id})}">
                                             <span class="glyphicon glyphicon-edit" data-toggle="tooltip"
                                                   data-placement="top" title="Edit Course"></span></a>
                                         &nbsp; &nbsp;
                                         <a data-toggle="modal" data-target="#modal-toTrash"
-                                           th:attr="data-target='#modal-toTrash'+${task.id}">
+                                           th:attr="data-target='#modal-toTrash'+${User.id}">
                                             <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
                                                   data-placement="top" title="Sent to Trash Box"></span></a>
                                     </td>
                                     <!--start send to trash modal-->
-                                    <div class="modal modal-toTrash" th:id="modal-toTrash+${task.id}">
+                                    <div class="modal modal-toTrash" th:id="modal-toTrash+${User.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -154,7 +103,7 @@
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/task/trash/{id}(id=${task.id})}">
+                                                    <a th:href="@{/user/trash/{id}(id=${User.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                                 </div>
@@ -192,37 +141,33 @@
                             <table class="table table-bordered table-striped table-responsive">
                                 <thead>
                                 <tr class="btn-info">
-                                    <th>Course Name</th>
-                                    <th>Description</th>
-                                    <th>Course Date</th>
-                                    Search Course
-                                    <th>Details</th>
-                                    <th>Operation</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:if="${#lists.isEmpty(allPassiveTask)}" class="btn-default">
                                     <td colspan="5" align="center">No Course Entered Yet!!!</td>
                                 </tr>
-                                <tr th:each="task : ${allPassiveTask}">
-                                    <td th:text="${task.taskName}"></td>
-                                    <td th:text="${task.description}"></td>
-                                    <td th:text="${task.taskDate}"></td>
-                                    <td th:text="${task.content}"></td>
-                                    <td th:hidden="${task.id}"></td>
+                                <tr th:each="User : ${allUser}">
+                                    <td th:text="${User.username}"></td>
+                                    <td th:text="${User.email}"></td>
+                                    <td th:text="${User.role}"></td>
                                     <td align="center">
-                                        <a th:href="@{/task/restore/{id}(id=${task.id})}">
+                                        <a th:href="@{/user/restore/{id}(id=${User.id})}">
                                             <span class="fas fa-sync" data-toggle="tooltip" data-placement="top"
                                                   title="Restore Course"></span></a>
                                         &nbsp; &nbsp;
                                         <a data-toggle="modal" data-target="#modal-delete"
-                                           th:attr="data-target='#modal-delete'+${task.id}">
+                                           th:attr="data-target='#modal-delete'+${User.id}">
                                             <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
                                                   data-placement="top" title="Delete Permanently"></span></a>
 
                                     </td>
                                     <!--start permanently delete modal-->
-                                    <div class="modal modal-delete" th:id="modal-delete+${task.id }">
+                                    <div class="modal modal-delete" th:id="modal-delete+${User.id }">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -233,14 +178,13 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p class="error-text"><strong>Are you sure you want to
-                                                        delete this Course ?</strong></p>
+                                                        delete this task ?</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
-                                                        
                                                     </button>
-                                                    <a th:href="@{/task/delete/{id}(id=${task.id})}">
+                                                    <a th:href="@{/user/delete/{id}(id=${User.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                                 </div>
