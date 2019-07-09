@@ -245,6 +245,8 @@ public class TodoController {
             }
         } else if (operation.equals("delete")) {
             if (userService.delete(id)) {
+            	logger.info("delete in controller 1");
+
                 redirectAttributes.addFlashAttribute("msg", "del");
                 redirectAttributes.addFlashAttribute("msgText", " Task deleted permanently");
             } else {
@@ -252,16 +254,22 @@ public class TodoController {
                 redirectAttributes.addFlashAttribute("msgText", " Task could not deleted. Please try later");
             }
         } else if (operation.equals("edit")) {
+        	logger.info("edit operation worked!!!!");
             User editUser = userService.findById(id);
+            logger.info("edit operation worked2!!!!");
             if (editUser != null) {
+            	logger.info("edit operation worked3!!!!");
                 model.addAttribute("editUser", editUser);
-                model.addAttribute("contextcourse", taskService.findById(id));
+               
+                logger.info("all good!!!!");
                 return "UserManagerEditform";
             } else {
+            	
+            	logger.info("the model attribute editUser is null !!!!");
                 redirectAttributes.addFlashAttribute("msg", "notfound");
             }
         }
-        return "redirect:/home";
+        return "redirect:/admin";
     }
 
 }

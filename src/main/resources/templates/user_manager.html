@@ -62,6 +62,7 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Operation</th>
                                    
                                 </tr>
                                 </thead>
@@ -103,7 +104,7 @@
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/user/trash/{id}(id=${User.id})}">
+                                                    <a th:href="@{/user/delete/{id}(id=${User.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                                 </div>
@@ -207,9 +208,7 @@
 
     </div>
 </div>
-<footer>
-    <div class="separator" th:replace="fragments/footer :: footer">&copy; 2016 pironix</div>
-</footer>
+
 
 <script type="text/javascript">
     $(function () {
