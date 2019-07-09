@@ -126,6 +126,7 @@
                                     <td th:text="${task.taskDate}"></td>
                                     <td th:text="${task.content}"></td>
                                     <td th:hidden="${task.id}"></td>
+                                    
                                     <td align="center">
                                         <a th:href="@{/task/edit/{id}(id=${task.id})}">
                                             <span class="glyphicon glyphicon-edit" data-toggle="tooltip"
@@ -156,7 +157,8 @@
                                                     </button>
                                                     <a th:href="@{/task/trash/{id}(id=${task.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
-
+												   <td><a th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
+												
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->

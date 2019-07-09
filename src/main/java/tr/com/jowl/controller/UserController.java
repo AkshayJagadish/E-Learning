@@ -101,6 +101,23 @@ public class UserController {
         return "student_home";
     }
     
+    @RequestMapping("/student/home/editProfile")
+    public String editProfile(Model model) {
+        Task task =new Task();
+        User user = new User();
+        registered_courses reg = new registered_courses();
+        
+        model.addAttribute("reqTask", task);
+        model.addAttribute("reqUser",user);
+        model.addAttribute("reqReg",reg);
+        model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
+        model.addAttribute("allTaskreg", regService.findAll());
+        model.addAttribute("allTask", taskService.findAll());
+        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
+        logger.info("home");
+        return "editProfileUsers";
+    }
+    
     @RequestMapping("/student/home/CourseReg/{course_id}")
     public String courseReg(@PathVariable int course_id,Model model) {
         Task task =new Task();
