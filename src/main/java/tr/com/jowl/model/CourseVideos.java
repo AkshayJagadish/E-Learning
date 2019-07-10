@@ -35,9 +35,22 @@ public class CourseVideos {
 
     @Column(name = "YoutubeVid_ID")
     private String youID;
+    
+    @Column(name = "VideoDescription")
+    private String youDes;
+    
+    
 
 
-    public CourseVideos() {
+    public String getYouDes() {
+		return youDes;
+	}
+
+	public void setYouDes(String youDes) {
+		this.youDes = youDes;
+	}
+
+	public CourseVideos() {
     }
 
     public int getId() {

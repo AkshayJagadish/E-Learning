@@ -10,7 +10,12 @@
 
 <body>
 <span th:each="vid : ${AllVids}" th:if="${vid.CourseId == contextcourse.id}">
+	<br>
+	<br>
+	<span th:text="${vid.youDes}"></span>
+	<br>
 	<span><iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{url}(url=${vid.youID})}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe></span><br>
+	
 </span>
 
 

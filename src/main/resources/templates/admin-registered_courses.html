@@ -18,7 +18,8 @@
                                     <th>Course ID</th>
                                     <th>Course Name</th>
                                     <th>User ID</th>
-                                    <th>User Name</th>
+                                    <th>Registered By</th>
+                                    <th>Operations</th>
                                     
                                 </tr>
                                 </thead>
@@ -33,6 +34,14 @@
                                     <td th:text="${task.user_id}"></td>
                                     <td th:text="${task.username}"></td>
                                     <td th:hidden="${task.id}"></td>
+                                    <td align="center">
+                                        
+                                        
+                                        <a data-toggle="modal" data-target="#modal-toTrash"
+                                           th:attr="data-target='#modal-toTrash'+${task.id}">
+                                            <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
+                                                  data-placement="top" title="Sent to Trash Box"></span></a>
+                                    </td>
                                     
                                     <!--start send to trash modal-->
                                     <div class="modal modal-toTrash" th:id="modal-toTrash+${task.id}">
@@ -46,14 +55,14 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p class="error-text"><strong>Are you sure you want to
-                                                        register for this course?</strong></p>
+                                                        delete this registration?</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/task/trash/{id}(id=${task.id})}">
-                                                        <span class="btn btn-danger" value="delete">Register</span></a>
+                                                    <a th:href="@{/admin/regcourse/delete/{course_id}/{id}(course_id=${task.course_id}, id=${task.id})}">
+                                                        <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                                 </div>
                                             </div>

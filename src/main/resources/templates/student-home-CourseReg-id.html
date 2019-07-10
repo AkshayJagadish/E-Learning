@@ -9,17 +9,17 @@
 </head>
 <body>
 
-       <form th:object="${reqReg}" th:action="@{/reg/saveReg}" method="post">
+       <form th:object="${reqReg}" th:action="@{/student/home/reg/saveReg}" method="post">
                         <div class="col-md-12">
                             <div class="form-group">
                                 
-                                <input type="text" th:value="${contextcourse.id}" th:name="course_id" th:id="course_id" th:errorclass="fieldError" class="form-control"
+                                <input readonly type="text" th:value="${contextcourse.id}" th:name="course_id" th:id="course_id" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Course Id"/>      
                             </div>
                             <div class="form-group">
                                 
-                                <input type="text" th:value="${contextcourse.taskName}" th:name="course_name" th:id="course_name" th:errorclass="fieldError" class="form-control"
+                                <input readonly type="text" th:value="${contextcourse.taskName}" th:name="course_name" th:id="course_name" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Course Name"/>      
                             </div>            
@@ -39,7 +39,7 @@
                     	<td th:text="${reg.course_name}"></td>
                     
                     </tr>-->   
-                    <br>
+                   <!--   <br>
                     <tr th:each="course : ${contextcourse}">
                     	<td th:text="${course.id}"></td>
                     	<td th:text="${course.taskName}"></td>
@@ -50,7 +50,7 @@
                   </tr>
                     
                     
-                    Your course has been registered {$contextcourse.taskName}
+                    Your course has been registered {$contextcourse.taskName}-->
 
 </body>
 </html>

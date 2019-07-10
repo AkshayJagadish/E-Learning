@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="compose">
+        <div class="container">
+            <div class="content-container clearfix">
+
+                <div class="row">
+                    <h1 class="content-title">Edit Users</h1>
+
+                    <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Success </strong> Task updated
+                    </div>
+                    <div th:if="${msg eq 'same'}" class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Warning !!! </strong> Please update at least one filed
+                    </div>
+                    <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Error !!!  </strong> Unexpected error occurred. Please try later.
+                    </div>
+
+                    <!--/*@thymesVar id="todoForm" type="java"*/-->
+                    <form th:object="${editUser}" th:action="@{/admin/user/editUser}" method="post">
+                         <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+                        <div class="col-md-12">
+                            
+							<div class="form-group">
+                                <input th:field="*{Username}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <input th:field="*{email}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Email"/>
+                            </div>
+                            <div class="form-group">
+                                <input th:field="*{role}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Role"/>
+                            </div>
+                         	 <div class="form-group">
+                                <input th:field="*{password}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Password"/>
+                            </div>
+                            
+                        </div>
+                        <br/>
+                        <div class="modal-footer">
+                            <div>
+                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                    Update
+                                </button>
+                            </div>
+                            <br/>
+                            <div>
+                                <a th:href="@{/home}" class="fa fa-arrow-left pull-right"> Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <span class="help-block"></span>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#startDatePicker').datetimepicker({
+            viewMode: 'days',
+            format: 'DD/MM/YYYY'
+        });
+    });
+</script>
+</body>
+</html>

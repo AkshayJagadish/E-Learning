@@ -16,7 +16,7 @@
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row">
-                    <h1 class="content-title">Course</h1><a th:href="@{/home}">Home</a>
+                    
                     <!--star operations messages-->
                     <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert"
@@ -49,7 +49,7 @@
                         Course Sent to Trash Box
                     </div>
                     <!--end of messages-->
-                    <form th:object="${reqTask}" th:action="@{/task/saveTask}" method="post">
+                <!--  <form th:object="${reqTask}" th:action="@{/admin/task/saveTask}" method="post">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input id="taskName" th:field="*{taskName}" type="text" class="form-control"
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <br/>
-                    </form>
+                    </form>-->
                 </div>
                 <span class="help-block"></span>
                 <!--start Trash Task tab-->
@@ -108,7 +108,7 @@
                                     <td th:text="${task.content}"></td>
                                     <td th:hidden="${task.id}"></td>
                                     <td align="center">
-                                        <a th:href="@{/task/edit/{id}(id=${task.id})}">
+                                        <a th:href="@{/admin/course_manager/task/edit/{id}(id=${task.id})}">
                                             <span class="glyphicon glyphicon-edit" data-toggle="tooltip"
                                                   data-placement="top" title="Edit Course"></span></a>
                                         &nbsp; &nbsp;
@@ -135,7 +135,7 @@
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/task/trash/{id}(id=${task.id})}">
+                                                    <a th:href="@{/admin/course_manager/task/delete/{id}(id=${task.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                                 </div>

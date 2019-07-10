@@ -19,20 +19,20 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 
-                                <input type="text" th:value="${contextcourse.id}" th:name="CourseId" th:id="CourseId" th:errorclass="fieldError" class="form-control"
+                                <input readonly type="text" th:value="${contextcourse.id}" th:name="CourseId" th:id="CourseId" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Course Id"/>      
                             </div>
                             <div class="form-group">
                                 
-                                <input type="text" th:value="${contextcourse.taskName}" th:name="CourseName" th:id="CourseName" th:errorclass="fieldError" class="form-control"
+                                <input readonly type="text" th:value="${contextcourse.taskName}" th:name="CourseName" th:id="CourseName" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Course Name"/>      
                             </div>   
                             
                             <div class="form-group">
                                 
-                                <input type="text" th:value="${currentUser.username}" th:name="instructor" th:id="instructor" th:errorclass="fieldError" class="form-control"
+                                <input readonly type="text" th:value="${currentUser.username}" th:name="instructor" th:id="instructor" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Instructor Name"/>      
                             </div>   
@@ -42,7 +42,13 @@
                                 <input type="text" th:name="youID" th:id="youID" th:errorclass="fieldError" class="form-control"
                                        required="required"
                                        placeholder="Youtube Video ID"/>      
-                            </div>            
+                            </div>    
+                            <div class="form-group">
+                                
+                                <input type="text" th:name="youDes" th:id="youDes" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Youtube Video Description"/>      
+                            </div>         
                             <div class="float-right btn-send">
                                 <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
                                     Upload Video Tutorial

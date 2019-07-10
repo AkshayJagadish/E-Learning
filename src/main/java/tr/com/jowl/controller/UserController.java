@@ -2,6 +2,7 @@ package tr.com.jowl.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import tr.com.jowl.model.User;
 import tr.com.jowl.model.CourseVideos;
 import tr.com.jowl.model.registered_courses;
 import tr.com.jowl.service.CourseVideosService;
-import tr.com.jowl.service.InstructorService;
 import tr.com.jowl.service.RegisterService;
 import tr.com.jowl.service.TaskService;
 import tr.com.jowl.service.UserService;
@@ -43,9 +43,6 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    
-    @Autowired
-    InstructorService instructorService;
     
     @Autowired
     RegisterService regService;
@@ -81,7 +78,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.ACTIVE.getValue()));
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("home");
-        return "home";
+        return "tutors-home";
     }
     
     @RequestMapping("/student/home")
@@ -110,12 +107,29 @@ public class UserController {
         model.addAttribute("reqTask", task);
         model.addAttribute("reqUser",user);
         model.addAttribute("reqReg",reg);
-        model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
+        model.addAttribute("currUser", userService.findById(globalController.getLoginUser().getId()));
         model.addAttribute("allTaskreg", regService.findAll());
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("home");
-        return "editProfileUsers";
+        return "student-home-editProfile";
+    }
+    
+    @RequestMapping("/tutor/home/editProfile")
+    public String editTutorProfile(Model model) {
+        Task task =new Task();
+        User user = new User();
+        registered_courses reg = new registered_courses();
+        
+        model.addAttribute("reqTask", task);
+        model.addAttribute("reqUser",user);
+        model.addAttribute("reqReg",reg);
+        model.addAttribute("currUser", userService.findById(globalController.getLoginUser().getId()));
+        model.addAttribute("allTaskreg", regService.findAll());
+        model.addAttribute("allTask", taskService.findAll());
+        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
+        logger.info("home");
+        return "tutor-home-editProfile";
     }
     
     @RequestMapping("/student/home/CourseReg/{course_id}")
@@ -133,12 +147,31 @@ public class UserController {
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("home");
-        return "RegCourses";
+        return "student-home-CourseReg-id";
     }
     
     
     @RequestMapping("/student/home/ViewCourse/{course_id}")
     public String Viewcourse(@PathVariable int course_id,Model model) {
+        Task task =new Task();
+        User user = new User();
+        registered_courses reg = new registered_courses();
+        
+        model.addAttribute("reqTask", task);
+        model.addAttribute("reqUser",user);
+        model.addAttribute("reqReg",reg);
+        model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
+        model.addAttribute("contextcourse", taskService.findById(course_id));
+        model.addAttribute("AllVids", vidService.findAll());
+       // model.addAttribute("contextreg", regService.findById(course_id));
+        model.addAttribute("allTask", taskService.findAll());
+        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
+        logger.info("home");
+        return "ViewCourse";
+    }
+    
+    @RequestMapping("/tutors/home/ViewCourse/{course_id}")
+    public String Viewcourse2(@PathVariable int course_id,Model model) {
         Task task =new Task();
         User user = new User();
         registered_courses reg = new registered_courses();
@@ -167,7 +200,7 @@ public class UserController {
         return "courses";
     }
     
-    @RequestMapping("/task/editTask/addVidTutorials/{id}")
+    @RequestMapping("/tutors/home/task/editTask/addVidTutorials/{id}")
     public String addVid(@PathVariable int id, Model model) {
         Task task =new Task();
         User user= new User();
@@ -180,7 +213,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.ACTIVE.getValue()));
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("Controller called Successfully");
-        return "AddVid";
+        return "tutors-home-task-edittask-addVidTutorials-id";
     }
     
     @RequestMapping("/admin/users_manager")
@@ -193,7 +226,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("course_manager");
-        return "user_manager";
+        return "admin-user_manager";
     }
     
     @RequestMapping("/admin/registered_courses")
@@ -207,7 +240,7 @@ public class UserController {
         model.addAttribute("allTaskreg", regService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("course_manager");
-        return "registered_courses";
+        return "admin-registered_courses";
     }
     
     
@@ -221,7 +254,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("course_manager");
-        return "course_manager";
+        return "admin-course_manager";
     }
     
     
@@ -233,12 +266,11 @@ public class UserController {
         model.addAttribute("reqTask", task);
         model.addAttribute("User",user);
         model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
-        model.addAttribute("allinst", instructorService.findAll());
 
         model.addAttribute("allTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.ACTIVE.getValue()));
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("admin");
-        return "adminn";
+        return "admin";
     }
 
     @RequestMapping("/tutor/register")

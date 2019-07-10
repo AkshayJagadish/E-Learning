@@ -53,7 +53,7 @@ public class TodoController {
     private GlobalController globalController;
     
 
-    @RequestMapping(value = {"/task/saveTask"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/tutors/home/task/saveTask"}, method = RequestMethod.POST)
     public String saveTodo(@ModelAttribute("reqTask") Task reqTask,
                            final RedirectAttributes redirectAttributes) {
         logger.info("/task/save");
@@ -69,6 +69,24 @@ public class TodoController {
         }
 
         return "redirect:/tutors/home";
+    }
+    
+    @RequestMapping(value = {"/admin/task/saveTask"}, method = RequestMethod.POST)
+    public String AdminSaveCourse(@ModelAttribute("reqTask") Task reqTask,
+                           final RedirectAttributes redirectAttributes) {
+        logger.info("/task/save");
+        try {
+            reqTask.setCreateDate(LocalDateTime.now());
+            reqTask.setStatus(Status.ACTIVE.getValue());
+            reqTask.setUserId(globalController.getLoginUser().getId());
+            taskService.save(reqTask);
+            redirectAttributes.addFlashAttribute("msg", "success");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("msg", "fail");
+            logger.error("save: " + e.getMessage());
+        }
+
+        return "redirect:admin/course_manager";
     }
     
     @RequestMapping(value = {"/task/saveVid"}, method = RequestMethod.POST)
@@ -88,7 +106,7 @@ public class TodoController {
         return "redirect:/tutors/home";
     }
     
-    @RequestMapping(value = {"/reg/saveReg"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"student/home/reg/saveReg"}, method = RequestMethod.POST)
     public String saveTodo1(@ModelAttribute("reqReg") registered_courses reqReg,
                            final RedirectAttributes redirectAttributes) {
         logger.info("/reg/saveReg");
@@ -109,6 +127,27 @@ public class TodoController {
         return "redirect:/student/home";
     }
     
+    @RequestMapping(value = {"/reg/editReg"}, method = RequestMethod.POST)
+    public String editReg(@ModelAttribute("reqReg") registered_courses reqReg,
+                           final RedirectAttributes redirectAttributes) {
+        logger.info("/reg/editReg");
+        try {
+        	//registered_courses regc = regService.findById(id);
+        	//regc.setId(id);
+        	//regc.setUserId();//
+        	//reqReg.setCourseId(id);
+            //reqReg.setUser_id(globalController.getLoginUser().getId());
+            //reqReg.setUsername(globalController.getLoginUser().getUsername());
+            regService.update(reqReg);
+            redirectAttributes.addFlashAttribute("msg", "success");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("msg", "fail");
+            logger.error("save: " + e.getMessage());
+        }
+
+        return "redirect:/admin/registered_courses";
+    }
+    
     
     @RequestMapping(value = {"/user/saveUser"}, method = RequestMethod.POST)
     public String saveTodo1(@ModelAttribute("reqUser") User reqUser,
@@ -126,7 +165,7 @@ public class TodoController {
         return "home";
     }
 
-    @RequestMapping(value = {"/task/editTask"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/tutors/task/editTask"}, method = RequestMethod.POST)
     public String editTodo(@ModelAttribute("editTask") Task editTask, Model model) {
         logger.info("/task/editTask");
         model.addAttribute("contextcourse", taskService.findById(editTask.getId()));
@@ -143,12 +182,32 @@ public class TodoController {
             logger.error("editUser: " + e.getMessage());
         }
         model.addAttribute("editTodo", editTask);
-        return "edit";
+        return "tutors-home-task-edit-id";
+    }
+    
+    @RequestMapping(value = {"/admin/task/editTask"}, method = RequestMethod.POST)
+    public String AdmineditTask(@ModelAttribute("editTask") Task editTask, Model model) {
+        logger.info("/task/editTask");
+        model.addAttribute("contextcourse", taskService.findById(editTask.getId()));
+        try {
+            Task task = taskService.findById(editTask.getId());
+            if (!task.equals(editTask)) {
+                taskService.update(editTask);
+                model.addAttribute("msg", "success");
+            } else {
+                model.addAttribute("msg", "same");
+            }
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("editUser: " + e.getMessage());
+        }
+        model.addAttribute("editTodo", editTask);
+        return "course_manager";
     }
     
     
     
-    @RequestMapping(value = {"/user/editUser"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/user/editUser"}, method = RequestMethod.POST)
     public String editTodo1(@ModelAttribute("editTask") User editUser, Model model) {
         logger.info("/task/editTask");
         try {
@@ -164,11 +223,49 @@ public class TodoController {
             logger.error("editUser: " + e.getMessage());
         }
         model.addAttribute("editTodo", editUser);
-        return "adminn";
+        return "redirect:/admin/users_manager";
+    }
+    
+    @RequestMapping(value = {"/student/home/user/currUser"}, method = RequestMethod.POST)
+    public String editTodo11(@ModelAttribute("currTask") User currUser, Model model) {
+        logger.info("/task/editTask");
+        try {
+            User user = userService.findById(currUser.getId());
+            if (!user.equals(currUser)) {
+                userService.update(currUser);
+                model.addAttribute("msg", "success");
+            } else {
+                model.addAttribute("msg", "same");
+            }
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("editUser: " + e.getMessage());
+        }
+        model.addAttribute("editTodo", currUser);
+        return "redirect:/student/home";
+    }
+    
+    @RequestMapping(value = {"/tutor/home/user/currUser"}, method = RequestMethod.POST)
+    public String editTodo111(@ModelAttribute("currTask") User currUser, Model model) {
+        logger.info("/task/editTask");
+        try {
+            User user = userService.findById(currUser.getId());
+            if (!user.equals(currUser)) {
+                userService.update(currUser);
+                model.addAttribute("msg", "success");
+            } else {
+                model.addAttribute("msg", "same");
+            }
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("editUser: " + e.getMessage());
+        }
+        model.addAttribute("editTodo", currUser);
+        return "redirect:/tutors/home";
     }
 
 
-    @RequestMapping(value = "/task/{operation}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tutors/home/task/{operation}/{id}", method = RequestMethod.GET)
     public String todoOperation(@PathVariable("operation") String operation,
                                 @PathVariable("id") int id, final RedirectAttributes redirectAttributes,
                                 Model model) {
@@ -200,6 +297,7 @@ public class TodoController {
             if (taskService.delete(id)) {
                 redirectAttributes.addFlashAttribute("msg", "del");
                 redirectAttributes.addFlashAttribute("msgText", " Task deleted permanently");
+                
             } else {
                 redirectAttributes.addFlashAttribute("msg", "del_fail");
                 redirectAttributes.addFlashAttribute("msgText", " Task could not deleted. Please try later");
@@ -208,14 +306,66 @@ public class TodoController {
             Task editTask = taskService.findById(id);
             if (editTask != null) {
                 model.addAttribute("editTask", editTask);
-                return "edit";
+                return "tutors-home-task-edit-id";
             } else {
                 redirectAttributes.addFlashAttribute("msg", "notfound");
             }
         }
-        return "redirect:/home";
+        return "redirect:/tutors/home";
     }
-    @RequestMapping(value = "/user/{operation}/{id}", method = RequestMethod.GET)
+    
+
+    
+    @RequestMapping(value = "/admin/course_manager/task/{operation}/{id}", method = RequestMethod.GET)
+    public String adminCourseEdit(@PathVariable("operation") String operation,
+                                @PathVariable("id") int id, final RedirectAttributes redirectAttributes,
+                                Model model) {
+
+        logger.info("/task/operation: {} ", operation);
+        if (operation.equals("trash")) {
+            Task task = taskService.findById(id);
+            if (task != null) {
+                task.setStatus(Status.PASSIVE.getValue());
+                taskService.update(task);
+                redirectAttributes.addFlashAttribute("msg", "trash");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "notfound");
+            }
+        }
+        if (operation.equals("restore")) {
+            Task task = taskService.findById(id);
+            if (task != null) {
+                task.setStatus(Status.ACTIVE.getValue());
+                taskService.update(task);
+                redirectAttributes.addFlashAttribute("msg", "active");
+                redirectAttributes.addFlashAttribute("msgText", "Task " + task.getTaskName() + " Restored Successfully.");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "active_fail");
+                redirectAttributes.addFlashAttribute("msgText", "Task Activation failed !!! Task:" + task.getTaskName());
+
+            }
+        } else if (operation.equals("delete")) {
+            if (taskService.delete(id)) {
+                redirectAttributes.addFlashAttribute("msg", "del");
+                redirectAttributes.addFlashAttribute("msgText", " Task deleted permanently");
+                
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "del_fail");
+                redirectAttributes.addFlashAttribute("msgText", " Task could not deleted. Please try later");
+            }
+        } else if (operation.equals("edit")) {
+            Task editTask = taskService.findById(id);
+            if (editTask != null) {
+                model.addAttribute("editTask", editTask);
+                return "admin-course_manager-task-edit-id";
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "notfound");
+            }
+        }
+        return "redirect:/admin/course_manager";
+    }
+    
+    @RequestMapping(value = "/admin/users_manager/user/{operation}/{id}", method = RequestMethod.GET)
     public String todoOperation1(@PathVariable("operation") String operation,
                                 @PathVariable("id") int id, final RedirectAttributes redirectAttributes,
                                 Model model) {
@@ -262,14 +412,72 @@ public class TodoController {
                 model.addAttribute("editUser", editUser);
                
                 logger.info("all good!!!!");
-                return "UserManagerEditform";
+                return "admin-users_manager-user-edit-id";
             } else {
             	
             	logger.info("the model attribute editUser is null !!!!");
                 redirectAttributes.addFlashAttribute("msg", "notfound");
             }
         }
-        return "redirect:/admin";
+        return "redirect:/admin/users_manager";
+    }
+    
+    @RequestMapping(value = "/admin/regcourse/{operation}/{course_id}/{id}", method = RequestMethod.GET)
+    public String todoOperation2(@PathVariable("operation") String operation,
+                                @PathVariable("id") int id, @PathVariable("course_id") int course_id, final RedirectAttributes redirectAttributes,
+                                Model model) {
+
+        logger.info("/user/operation: {} ", operation);
+        if (operation.equals("trash")) {
+        	registered_courses reg = regService.findById(id);
+            if (reg != null) {
+                //user.setStatus(Status.PASSIVE.getValue());
+                regService.update(reg);
+                redirectAttributes.addFlashAttribute("msg", "trash");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "notfound");
+            }
+        }
+        if (operation.equals("restore")) {
+        	registered_courses reg = regService.findById(id);
+            if (reg != null) {
+                //user.setStatus(Status.ACTIVE.getValue());
+                regService.update(reg);
+                redirectAttributes.addFlashAttribute("msg", "active");
+                redirectAttributes.addFlashAttribute("msgText", "Task " + reg.getUsername() + " Restored Successfully.");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "active_fail");
+                redirectAttributes.addFlashAttribute("msgText", "Task Activation failed !!! Task:" + reg.getUsername());
+
+            }
+        } else if (operation.equals("delete")) {
+            if (regService.delete(id)) {
+            	logger.info("delete in controller 1");
+
+                redirectAttributes.addFlashAttribute("msg", "del");
+                redirectAttributes.addFlashAttribute("msgText", " Task deleted permanently");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "del_fail");
+                redirectAttributes.addFlashAttribute("msgText", " Task could not deleted. Please try later");
+                
+            }
+        } else if (operation.equals("edit")) {
+        	logger.info("edit operation worked!!!!");
+        	registered_courses reqReg = regService.findById(id);
+            logger.info("edit operation worked2!!!!");
+            if (reqReg != null) {
+            	logger.info("edit operation worked3!!!!");
+                model.addAttribute("reqReg", reqReg);
+                model.addAttribute("contextcourse", taskService.findById(course_id));
+                logger.info("all good!!!!");
+                return "admin_EditRegCourses";
+            } else {
+            	
+            	logger.info("the model attribute editUser is null !!!!");
+                redirectAttributes.addFlashAttribute("msg", "notfound");
+            }
+        }
+        return "redirect:/admin/registered_courses";
     }
 
 }
