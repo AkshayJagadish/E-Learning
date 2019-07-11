@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<table><tr><td th:text="${contextcourse.id}"></td><td th:text="${contextcourse.userId}"></td></tr></table>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="tab-content">
+
+
+    <div class="tab-pane active" id="addTaskTab">
+        <div class="container">
+            <div class="content-container clearfix">
+                <div class="row" style="position:relative">
 <h3>Paste the link of a video tutorial from youtube.</h3>
 <form action="javascript:youtube_parser()"><input type="text" id="url"></input>
 <button>Extract ID</button>
-<p id="demo">This is a demonstration.</p>
+
 </form>
 
 					<form th:object="${reqVid}" th:action="@{/task/saveVid}" method="post">
@@ -57,6 +65,12 @@
                         </div>
                         <br/>
                     </form>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    
 <script type="text/javascript">
 
 function a()

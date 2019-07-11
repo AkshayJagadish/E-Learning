@@ -6,8 +6,15 @@
     <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
-<div class="panel panel-info">
+<div th:replace="fragments/header :: header"></div>
 
+<div class="tab-content">
+
+
+    <div class="tab-pane active" id="addTaskTab">
+        <div class="container">
+            <div class="content-container clearfix">
+                <div class="row" style="position:relative">
                         <div class="panel-body">
                             <table class="table table-bordered table-striped table-responsive">
                                 <thead>
@@ -80,5 +87,13 @@
                             </div>
                         </div>
                     </form>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    
+                    
 </body>
 </html>
