@@ -10,16 +10,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tr.com.jowl.model.CourseVideos;
 import tr.com.jowl.model.Task;
 import tr.com.jowl.model.User;
+import tr.com.jowl.model.profilepic;
 import tr.com.jowl.model.registered_courses;
 import tr.com.jowl.service.CourseVideosService;
 import tr.com.jowl.service.RegisterService;
 import tr.com.jowl.service.TaskService;
 import tr.com.jowl.service.UserService;
+import tr.com.jowl.service.profilepicService;
 import tr.com.jowl.utils.Status;
 
 import java.time.LocalDateTime;
@@ -48,6 +52,9 @@ public class TodoController {
     
     @Autowired
     private CourseVideosService courseVideosService;
+    
+    @Autowired
+    private profilepicService ppService;
     
     @Autowired
     private GlobalController globalController;
@@ -106,6 +113,26 @@ public class TodoController {
         return "redirect:/tutors/home";
     }
     
+    @RequestMapping(value = {"/tutors/home/changeprofpic/changepp"}, method = RequestMethod.POST)
+    public String savepp1(@RequestParam("files") MultipartFile files, @ModelAttribute("reqpp") profilepic reqpp,
+                           final RedirectAttributes redirectAttributes) {
+        logger.info("/task/save");
+        try {
+           
+            //reqTask.setUserId(globalController.getLoginUser().getId());
+        	reqpp.setPpfile(files.getBytes());
+            ppService.save(reqpp);
+            redirectAttributes.addFlashAttribute("msg", "success");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("msg", "fail");
+            logger.error("save: " + e.getMessage());
+        }
+
+        return "redirect:/tutors/home";
+    }
+    
+   
+    
     @RequestMapping(value = {"student/home/reg/saveReg"}, method = RequestMethod.POST)
     public String saveTodo1(@ModelAttribute("reqReg") registered_courses reqReg,
                            final RedirectAttributes redirectAttributes) {
@@ -147,6 +174,28 @@ public class TodoController {
 
         return "redirect:/admin/registered_courses";
     }
+    
+    /*@RequestMapping(value = {"/tutor/home/updateprofpic"}, method = RequestMethod.POST)
+    public String updateprofilepic(@RequestParam("files") MultipartFile files, @ModelAttribute("currUser") User currUser,
+                           final RedirectAttributes redirectAttributes) {
+        logger.info("/reg/editReg");
+        try {
+        	//registered_courses regc = regService.findById(id);
+        	//regc.setId(id);
+        	//regc.setUserId();//
+        	//reqReg.setCourseId(id);
+            //reqReg.setUser_id(globalController.getLoginUser().getId());
+            //reqReg.setUsername(globalController.getLoginUser().getUsername());
+        	currUser.setPp(files.getBytes());
+            userService.update(currUser);
+            redirectAttributes.addFlashAttribute("msg", "success");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("msg", "fail");
+            logger.error("save: " + e.getMessage());
+        }
+
+        return "redirect:/tutors/home";
+    }*/
     
     
     @RequestMapping(value = {"/user/saveUser"}, method = RequestMethod.POST)
@@ -227,17 +276,15 @@ public class TodoController {
     }
     
     @RequestMapping(value = {"/student/home/user/currUser"}, method = RequestMethod.POST)
-    public String editTodo11(@ModelAttribute("currTask") User currUser, Model model) {
+    public String editTodo11(@RequestParam("files") MultipartFile files,@ModelAttribute("currTask") User currUser, Model model) {
         logger.info("/task/editTask");
         try {
-            User user = userService.findById(currUser.getId());
-            if (!user.equals(currUser)) {
+            
+            	currUser.setPp(files.getBytes());
                 userService.update(currUser);
                 model.addAttribute("msg", "success");
-            } else {
-                model.addAttribute("msg", "same");
             }
-        } catch (Exception e) {
+          catch (Exception e) {
             model.addAttribute("msg", "fail");
             logger.error("editUser: " + e.getMessage());
         }
@@ -246,17 +293,16 @@ public class TodoController {
     }
     
     @RequestMapping(value = {"/tutor/home/user/currUser"}, method = RequestMethod.POST)
-    public String editTodo111(@ModelAttribute("currTask") User currUser, Model model) {
-        logger.info("/task/editTask");
+    public String editTodo111(@RequestParam("files") MultipartFile files, @ModelAttribute("currUser") User currUser, Model model) {
+        logger.info("profile pic controller entered");
         try {
-            User user = userService.findById(currUser.getId());
-            if (!user.equals(currUser)) {
+            //User user = userService.findById(currUser.getId());
+            
+            	currUser.setPp(files.getBytes());
                 userService.update(currUser);
                 model.addAttribute("msg", "success");
-            } else {
-                model.addAttribute("msg", "same");
             }
-        } catch (Exception e) {
+            catch (Exception e) {
             model.addAttribute("msg", "fail");
             logger.error("editUser: " + e.getMessage());
         }

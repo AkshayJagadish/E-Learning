@@ -35,7 +35,7 @@
                                 </tbody>
                             </table>
                             
-                            <form th:object="${currUser}" th:action="@{/student/home/user/currUser}" method="post">
+                            <form th:object="${currUser}" th:action="@{/student/home/user/currUser}" method="post" enctype="multipart/form-data">
                          <input type="hidden" th:field="*{id}" th:value="*{id}"/>
                         <div class="col-md-12">
                             
@@ -60,6 +60,10 @@
                                        required="required"
                                        placeholder="Password"/>
                             </div>
+                            Upload Profile picture                            
+                            <div class="form-group">
+                                <input id="files" name="files" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
+                            </div>
                          	 
                             
                         </div>
@@ -72,7 +76,7 @@
                             </div>
                             <br/>
                             <div>
-                                <a th:href="@{/home}" class="fa fa-arrow-left pull-right"> Back</a>
+                                <a th:href="@{/student/home}" class="fa fa-arrow-left pull-right"> Back</a>
                             </div>
                         </div>
                     </form>

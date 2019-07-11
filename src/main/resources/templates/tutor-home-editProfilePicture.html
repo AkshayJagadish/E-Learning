@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+
+                        
+                            
+                            <!--  <form th:object="${currUser}" th:action="@{/tutors/home/changeprofpic/changepp}" method="post" enctype="multipart/form-data">
+                         	<input type="hidden" th:field="*{id}" th:value="*{id}"/>
+                        	<div class="col-md-12">
+                            
+							<div class="form-group">
+                                <input readonly type="text" th:value="${currUser.id}" th:name="userId" th:id="userId" th:errorclass="fieldError" class="form-control"
+                                       required="required"
+                                       placeholder="Course Id"/> 
+                             </div>
+                            
+                            
+                            <div class="form-group">
+                                <input id="files" name="files" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
+                            </div>-->
+                            
+  					<!--  	<form th:object="${currUser}" th:action="@{/tutor/home/updateprofpic}" method="post">                    
+                            <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+                        	<div class="col-md-12">
+                            
+							<div class="form-group">
+                                <input th:field="*{Username}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <input th:field="*{email}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Email"/>
+                            </div>
+                            <div class="form-group">
+                                <input th:field="*{role}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Role"/>
+                            </div>
+                         	 <div class="form-group">
+                                <input th:field="*{password}" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <input id="pp" name="pp" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
+                            </div>
+                            
+                        </div>
+                        <br/>
+                        <div class="modal-footer">
+                            <div>
+                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                    Update
+                                </button>
+                            </div>
+                            <br/>
+                            <div>
+                                <a th:href="@{/home}" class="fa fa-arrow-left pull-right"> Back</a>
+                            </div>
+                        </div>-->
+                         	 
+                            
+                        	
+                        <br/>
+                        <form th:object="${reqpp}" th:action="@{/tutors/home/changeprofpic/changepp}" method="post" enctype="multipart/form-data">
+                          <input th:id="userId" th:name="userId" type="text" class="form-control"
+                                       required="required"
+                                       placeholder="User Id"/>
+                        
+                        <div class="form-group">
+                                <input id="files" name="files" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
+                            </div>
+                          <div class="modal-footer">
+                            <div>
+                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                    Change profile picture
+                                </button>
+                            </div>
+                            <br/>
+                            <div>
+                                <a th:href="@{/home}" class="fa fa-arrow-left pull-right"> Back</a>
+                            </div>
+                        </div>
+                    </form>
+                      <h1><span id="sp" th:text="${encoded}"></span></h1>
+                    <img style="width:150px;height:150px" id="ItemPreview" src=""/>
+                    
+                    
+                    <script>
+                    var str=document.getElementById("sp").innerHTML;
+                    document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
+                    </script>
+</body>
+</html>

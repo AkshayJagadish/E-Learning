@@ -1,6 +1,9 @@
 package tr.com.jowl.model;
 
 import javax.persistence.*;
+
+import com.mysql.jdbc.Blob;
+
 import java.util.Objects;
 
 /**
@@ -34,19 +37,36 @@ public class User {
 
     @Column(name = "role")
     private int role;
+    
+    @Column(name = "profilepicture")
+    @Lob
+    private  byte[] pp;
 
-    public User() {
+ 
+	public User() {
     }
 
-    public User(String username, String password, String email, int role) {
+    public User(String username, String password, String email, int role, byte[] pp) {
         this.setUsername(username);
         this.setPassword(password);
         this.setEmail(email);
         this.setRole(role);
+        this.setPp(pp);
 
     }
+    
+  
 
-    public int getId() {
+
+    public byte[] getPp() {
+		return pp;
+	}
+
+	public void setPp(byte[] pp) {
+		this.pp = pp;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -106,11 +126,12 @@ public class User {
                 Objects.equals(password, user.password) &&
                 Objects.equals(password_2, user.password_2) &&
                 Objects.equals(email, user.email);
+        		
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, username, password, password_2, email, role);
+        return Objects.hash(id, username, password, password_2, email, role, pp);
     }
 }
