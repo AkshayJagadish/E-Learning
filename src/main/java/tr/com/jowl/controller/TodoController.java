@@ -274,13 +274,22 @@ public class TodoController {
     }
     
     @RequestMapping(value = {"/student/home/user/currUser"}, method = RequestMethod.POST)
-    public String editTodo11(@RequestParam("files") MultipartFile files,@ModelAttribute("currTask") User currUser, Model model) {
+    public String editTodo11(@RequestParam("files") MultipartFile files,@ModelAttribute("currUser") User currUser, Model model) {
         logger.info("/task/editTask");
+        User user1 = userService.findById(globalController.getLoginUser().getId());
+
         try {
-            
+            	if(files.isEmpty())
+            	{
+            		currUser.setPp(user1.getPp());
+            		userService.update(currUser);
+            	}
+            	else
+            	{
             	currUser.setPp(files.getBytes());
                 userService.update(currUser);
                 model.addAttribute("msg", "success");
+            	}
             }
           catch (Exception e) {
             model.addAttribute("msg", "fail");
@@ -293,18 +302,25 @@ public class TodoController {
     @RequestMapping(value = {"/tutor/home/user/currUser"}, method = RequestMethod.POST)
     public String editTodo111(@RequestParam("files") MultipartFile files, @ModelAttribute("currUser") User currUser, Model model) {
         logger.info("profile pic controller entered");
+        User user1 = userService.findById(globalController.getLoginUser().getId());
         try {
-            //User user = userService.findById(currUser.getId());
-            
-            	currUser.setPp(files.getBytes());
-                userService.update(currUser);
-                model.addAttribute("msg", "success");
-            }
-            catch (Exception e) {
-            model.addAttribute("msg", "fail");
-            logger.error("editUser: " + e.getMessage());
+        	if(files.isEmpty())
+        	{
+        		currUser.setPp(user1.getPp());
+        		userService.update(currUser);
+        	}
+        	else
+        	{
+        	currUser.setPp(files.getBytes());
+            userService.update(currUser);
+            model.addAttribute("msg", "success");
+        	}
         }
-        model.addAttribute("editTodo", currUser);
+      catch (Exception e) {
+        model.addAttribute("msg", "fail");
+        logger.error("editUser: " + e.getMessage());
+    }
+    model.addAttribute("editTodo", currUser);
         return "redirect:/tutors/home";
     }
 
