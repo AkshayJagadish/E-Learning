@@ -17,13 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tr.com.jowl.model.CourseVideos;
 import tr.com.jowl.model.Task;
 import tr.com.jowl.model.User;
-import tr.com.jowl.model.profilepic;
+
 import tr.com.jowl.model.registered_courses;
 import tr.com.jowl.service.CourseVideosService;
 import tr.com.jowl.service.RegisterService;
 import tr.com.jowl.service.TaskService;
 import tr.com.jowl.service.UserService;
-import tr.com.jowl.service.profilepicService;
 import tr.com.jowl.utils.Status;
 
 import java.time.LocalDateTime;
@@ -53,8 +52,7 @@ public class TodoController {
     @Autowired
     private CourseVideosService courseVideosService;
     
-    @Autowired
-    private profilepicService ppService;
+    
     
     @Autowired
     private GlobalController globalController;
@@ -113,7 +111,7 @@ public class TodoController {
         return "redirect:/tutors/home";
     }
     
-    @RequestMapping(value = {"/tutors/home/changeprofpic/changepp"}, method = RequestMethod.POST)
+   /* @RequestMapping(value = {"/tutors/home/changeprofpic/changepp"}, method = RequestMethod.POST)
     public String savepp1(@RequestParam("files") MultipartFile files, @ModelAttribute("reqpp") profilepic reqpp,
                            final RedirectAttributes redirectAttributes) {
         logger.info("/task/save");
@@ -121,7 +119,7 @@ public class TodoController {
            
             //reqTask.setUserId(globalController.getLoginUser().getId());
         	reqpp.setPpfile(files.getBytes());
-            ppService.save(reqpp);
+            //ppService.save(reqpp);
             redirectAttributes.addFlashAttribute("msg", "success");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("msg", "fail");
@@ -129,7 +127,7 @@ public class TodoController {
         }
 
         return "redirect:/tutors/home";
-    }
+    }*/
     
    
     

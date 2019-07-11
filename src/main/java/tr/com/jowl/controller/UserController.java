@@ -27,14 +27,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tr.com.jowl.model.Task;
 import tr.com.jowl.model.User;
-import tr.com.jowl.model.profilepic;
 import tr.com.jowl.model.CourseVideos;
 import tr.com.jowl.model.registered_courses;
 import tr.com.jowl.service.CourseVideosService;
 import tr.com.jowl.service.RegisterService;
 import tr.com.jowl.service.TaskService;
 import tr.com.jowl.service.UserService;
-import tr.com.jowl.service.profilepicService;
 import tr.com.jowl.utils.PassEncoding;
 import tr.com.jowl.utils.Roles;
 import tr.com.jowl.utils.Status;
@@ -66,8 +64,7 @@ public class UserController {
     @Autowired
     CourseVideosService vidService;
     
-    @Autowired
-    profilepicService ppService;
+  
     
     
     
