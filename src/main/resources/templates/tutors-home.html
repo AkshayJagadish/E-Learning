@@ -23,12 +23,20 @@
                    <!--   <a th:href="@{/tutor/home/changeprofpic}">[Change Profile Picture]</a>-->
                    
                    <h1><span style="display:none" id="sp" th:text="${encodedimg}"></span></h1>
-                    <img style="width:150px;height:150px" id="ItemPreview" src="" alt=""https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ""/>
+                    <img style="width:150px;height:150px" id="ItemPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="No profile photo" />
+                    <h1><span style="display:none" id="sp1" th:text="${imgurl}"></span></h1>
                     
                     
                     <script>
+                   	
                     var str=document.getElementById("sp").innerHTML;
+                   	if(str==="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ")
+                   		{}
+                   	else if(str)
+                   		{
                     document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
+                   		}
+                    
                     </script>
                    
  
@@ -37,12 +45,7 @@
 					  <h1><span th:text="${allUser.username}"></span></h1>
 					  <span th:text="${allUser.email}"></span>
 					  
-					  <div style="margin: 24px 0;">
-					    <a href="#"><i class="fa fa-dribbble"></i></a> 
-					    <a href="#"><i class="fa fa-twitter"></i></a>  
-					    <a href="#"><i class="fa fa-linkedin"></i></a>  
-					    <a href="#"><i class="fa fa-facebook"></i></a> 
-					  </div>
+					  
 					  <br>
   					<h2>Create a course</h2>
 					</div>

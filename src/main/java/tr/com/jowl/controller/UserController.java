@@ -87,7 +87,9 @@ public class UserController {
     public String home(Model model) {
         Task task =new Task();
         User user = new User(); 
-        
+        model.addAttribute("imgurl","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ");
+
+        String imgurl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ";
         User user1=userService.findById(globalController.getLoginUser().getId());
         try
         {
@@ -99,6 +101,7 @@ public class UserController {
         }
         catch(NullPointerException e)
         {
+        	model.addAttribute("encodedimg",imgurl);
         	System.out.println("Null pointer Exception caught");
         }
         
@@ -118,7 +121,8 @@ public class UserController {
         Task task =new Task();
         User user = new User();
         registered_courses reg = new registered_courses();
-        
+        String imgurl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ";
+
         User user1=userService.findById(globalController.getLoginUser().getId());
         try
         {
@@ -130,6 +134,8 @@ public class UserController {
         }
         catch(NullPointerException e)
         {
+        	model.addAttribute("encodedimg",imgurl);
+
         	System.out.println("Null pointer Exception caught");
         }
         
