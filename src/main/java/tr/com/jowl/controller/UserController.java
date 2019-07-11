@@ -72,7 +72,10 @@ public class UserController {
     @RequestMapping("/")
     public String root(@ModelAttribute("allUser") User allUser, Model model, final RedirectAttributes redirectAttributes) {
         model.addAttribute("reqUser", new User());
+        try
+        {
         User currUser=userService.findById(globalController.getLoginUser().getId());
+        
         if(currUser.getRole()==2)
         {
         	return "redirect:/tutors/home";
@@ -85,12 +88,14 @@ public class UserController {
         {
         	return "redirect:/admin";
         }
-        else
-        {
-        	return "redirect:/login";
         }
+        catch(Exception e)
+        {
+        	return "login";
+        }
+  
         
-       // return "login";
+        return "login";
     }
 
     @RequestMapping("/login")
