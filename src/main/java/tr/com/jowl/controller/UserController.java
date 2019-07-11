@@ -70,10 +70,27 @@ public class UserController {
     
 
     @RequestMapping("/")
-    public String root(Model model) {
+    public String root(@ModelAttribute("allUser") User allUser, Model model, final RedirectAttributes redirectAttributes) {
         model.addAttribute("reqUser", new User());
-        logger.info("root");
-        return "login";
+        User currUser=userService.findById(globalController.getLoginUser().getId());
+        if(currUser.getRole()==2)
+        {
+        	return "redirect:/tutors/home";
+        }
+        else if(currUser.getRole()==3)
+        {
+        	return "redirect:/student/home";
+        }
+        else if(currUser.getRole()==1)
+        {
+        	return "redirect:/admin";
+        }
+        else
+        {
+        	return "redirect:/login";
+        }
+        
+       // return "login";
     }
 
     @RequestMapping("/login")
