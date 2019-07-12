@@ -164,6 +164,8 @@ public class UserController {
         model.addAttribute("reqTask", task);
         model.addAttribute("reqUser",user);
         model.addAttribute("reqReg",reg);
+        model.addAttribute("allllUser", userService.findAll());
+
         model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
         model.addAttribute("allTaskreg", regService.findAll());
         model.addAttribute("allTask", taskService.findAll());

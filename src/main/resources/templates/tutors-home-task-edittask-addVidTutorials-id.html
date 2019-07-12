@@ -83,7 +83,7 @@ function youtube_parser(){
 	var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 	var match = url.match(regExp);
 	if (match && match[2].length == 11) {
-		document.getElementById("demo").innerHTML = match[2];
+		//document.getElementById("demo").innerHTML = match[2];
 		document.getElementById("youID").value = match[2];
 //document.write('<iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/vVX1n7pHM3c}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe>');
 	  

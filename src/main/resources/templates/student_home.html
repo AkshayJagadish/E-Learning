@@ -93,8 +93,8 @@
                                 <tr class="btn-info">
                                     <th>Course ID</th>
                                     <th>Course Name</th>
-                                    <th>User ID</th>
-                                    <th>User Name</th>
+                                    <th>Created By</th>
+                                    <th>Registered By</th>
                                     
                                 </tr>
                                 
@@ -108,7 +108,11 @@
                                     
                                     <td th:text="${task.course_id}"></td>
                                    <td th:each="taskorig : ${allTask}" th:if="${task.course_id == taskorig.id}" th:text="${taskorig.taskName}"></td>
-                                    <td th:text="${task.user_id}"></td>
+                                   <td>
+                                   <div th:each="user : ${allllUser}">
+                                   <div th:each="taskorig : ${allTask}">
+                                    <div th:if="${user.id == taskorig.userId}"> 
+                                    <span th:if="${taskorig.id == task.course_id}" th:text="${user.username}"></span></div></div></div></td>
                                     <td th:text="${task.username}"></td>
                                     <td th:hidden="${task.id}"></td>
                                     <td><a th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.course_id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
@@ -132,7 +136,7 @@
                                                     <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/task/trash/{id}(id=${task.id})}">
+                                                    <a th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
                                                         <span class="btn btn-danger" value="delete">Register</span></a>
 
                                                 </div>
@@ -317,7 +321,7 @@
     </div>
 </div>
 <footer>
-    <div class="separator" th:replace="fragments/footer :: footer">&copy; 2016 pironix</div>
+    <div class="separator" th:replace="fragments/footer :: footer"></div>
 </footer>
 
 <script type="text/javascript">
