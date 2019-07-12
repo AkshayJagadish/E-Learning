@@ -97,6 +97,35 @@ public class UserController {
         
         return "login";
     }
+    
+    @RequestMapping("/login?logout")
+    public String root1(@ModelAttribute("allUser") User allUser, Model model, final RedirectAttributes redirectAttributes) {
+        model.addAttribute("reqUser", new User());
+        try
+        {
+        User currUser=userService.findById(globalController.getLoginUser().getId());
+        
+        if(currUser.getRole()==2)
+        {
+        	return "redirect:/tutors/home";
+        }
+        else if(currUser.getRole()==3)
+        {
+        	return "redirect:/student/home";
+        }
+        else if(currUser.getRole()==1)
+        {
+        	return "redirect:/admin";
+        }
+        }
+        catch(Exception e)
+        {
+        	return "login";
+        }
+  
+        
+        return "login";
+    }
 
     @RequestMapping("/login")
     public String login(Model model) {
@@ -366,7 +395,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("home");
-        return "ViewCourse";
+        return "student_ViewCourse";
     }
     
     @RequestMapping("/tutors/home/ViewCourse/{course_id}")
@@ -374,10 +403,11 @@ public class UserController {
         Task task =new Task();
         User user = new User();
         registered_courses reg = new registered_courses();
-        
+        CourseVideos cv = new CourseVideos();
         model.addAttribute("reqTask", task);
         model.addAttribute("reqUser",user);
         model.addAttribute("reqReg",reg);
+       // model.addAttribute("",r);
         model.addAttribute("allUser", userService.findById(globalController.getLoginUser().getId()));
         model.addAttribute("contextcourse", taskService.findById(course_id));
         model.addAttribute("AllVids", vidService.findAll());
@@ -385,7 +415,7 @@ public class UserController {
         model.addAttribute("allTask", taskService.findAll());
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("home");
-        return "ViewCourse";
+        return "tutor_ViewCourse";
     }
     
     @RequestMapping("/home/courses")

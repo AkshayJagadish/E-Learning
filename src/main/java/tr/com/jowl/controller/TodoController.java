@@ -375,6 +375,16 @@ public class TodoController {
     }
     
 
+    @RequestMapping(value = "/tutors/ViewVid/{operation}/{id}", method = RequestMethod.GET)
+    public String VidDelete(@PathVariable("operation") String operation,
+                                @PathVariable("id") int id, final RedirectAttributes redirectAttributes,
+                                Model model) {
+        if (operation.equals("delete")) {
+        	courseVideosService.delete(id);
+        }
+        return "tutor_ViewCourse";
+    	
+    }
     
     @RequestMapping(value = "/admin/course_manager/task/{operation}/{id}", method = RequestMethod.GET)
     public String adminCourseEdit(@PathVariable("operation") String operation,
