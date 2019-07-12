@@ -23,7 +23,7 @@
 	<br>
 	<span th:text="${vid.youDes}"></span>
 	<br>
-	<a th:href="@{/tutors/ViewVid/delete/{id}(id=${vid.id})}">
+	<a th:href="@{/tutors/ViewVid/delete/{course_id}/{id}(id=${vid.id}, course_id=${vid.CourseId})}">
      <span class="btn btn-danger" value="delete">Delete Video</span>
      </a>
 	<span><iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{url}(url=${vid.youID})}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe></span><br>
