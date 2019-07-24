@@ -10,46 +10,32 @@
 <body>
 <a th:href="@{/home/courses}">Courses</a>
 <a th:href="@{/home}">Home</a>
-
 <div th:replace="fragments/header :: header"></div>
 
 <div class="tab-content">
-
-
     <div class="tab-pane active" id="addTaskTab">
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
                     <h1 class="content-title">Profile</h1>
                     <div class="editProfile" align="right">
-                    <a id="editProfileLink" th:href="@{/student/home/editProfile}">Edit Profile</a>
+                    	<a id="editProfileLink" th:href="@{/student/home/editProfile}">Edit Profile</a>
                     </div>
-                 
                     <div class="card">
 					  <h1><span style="display:none" id="sp" th:text="${encodedimg}"></span></h1>
-                      <img style="width:150px;height:150px" id="ItemPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="No profile photo"/>
-                    
-                    
+                      <img style="width:150px;height:150px" id="ItemPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="No profile photo"/>                    
                       <script>
-                   	
-                    var str=document.getElementById("sp").innerHTML;
-                   	if(str==="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ")
-                   		{}
-                   	else if(str)
-                   		{
-                    document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
-                   		}
-                    
-                    </script>
+	                    var str=document.getElementById("sp").innerHTML;
+	                   	if(str==="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ"){}
+	                   	else if(str){
+	                    	document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
+	                    }
+	                  </script>
                       <h1><span th:text="${allUser.username}"></span></h1>
 					  <span th:text="${allUser.email}"></span>
-					 
-					  <!-- <a th:href="@{/student/home/{course_id} (course_id=${allUser.id})}">asda</a>-->
-					  
-					  
 					  <br>
 					  <br>
-  					<h1>Registered Courses</h1>
+					  <h1>Registered Courses</h1>
 					</div>
                     <!--star operations messages-->
                     <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
@@ -83,7 +69,6 @@
                         Course Sent to Trash Box
                     </div>
                     <!--end of messages-->
-                    
                 </div>
                 
                 <span class="help-block"></span>
@@ -98,28 +83,29 @@
                                     <th>Course Name</th>
                                     <th>Created By</th>
                                     <th>Registered By</th>
-                                    
+                                    <th>Action</th>
                                 </tr>
-                                
                                 </thead>
+                                
                                 <tbody>
                                 <tr th:if="${#lists.isEmpty(allTaskreg)}" class="btn-default">
                                     <td colspan="5" align="center">No Course Registered Yet!!!</td>
                                 </tr>
-                                
                                 <tr th:each="task : ${allTaskreg}" th:if="${task.user_id==allUser.id}">
-                                    
-                                    <td th:text="${task.course_id}"></td>
+                                   <td th:text="${task.course_id}"></td>
                                    <td th:each="taskorig : ${allTask}" th:if="${task.course_id == taskorig.id}" th:text="${taskorig.taskName}"></td>
                                    <td>
-                                   <div th:each="user : ${allllUser}">
-                                   <div th:each="taskorig : ${allTask}">
-                                    <div th:if="${user.id == taskorig.userId}"> 
-                                    <span th:if="${taskorig.id == task.course_id}" th:text="${user.username}"></span></div></div></div></td>
+	                                   <div th:each="user : ${allllUser}">
+	                                   	<div th:each="taskorig : ${allTask}">
+	                                    	<div th:if="${user.id == taskorig.userId}"> 
+	                                    		<span th:if="${taskorig.id == task.course_id}" th:text="${user.username}"></span>
+	                                   		</div>
+	                                  	</div>
+	                                  </div>
+	                                </td>
                                     <td th:text="${task.username}"></td>
                                     <td th:hidden="${task.id}"></td>
-                                    <td><a id="viewCourseLink"th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.course_id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
-                                     
+                                    <td><button><a id="viewCourseLink" th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.course_id})}">Go to course</a></button></td>
                                     
                                     <!--start send to trash modal-->
                                     <div class="modal modal-toTrash" th:id="modal-toTrash+${task.id}">
@@ -136,12 +122,12 @@
                                                         register for this course?</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                                    <button data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
-                                                        <span class="btn btn-danger" value="delete">Register</span></a>
-
+                                                    <button>
+                                                    <a id="registerButton" th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
+                                                        Register</a></button>
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
@@ -150,14 +136,12 @@
                                     </div>
                                     <!--end send to trash modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
-
                     </div>
-
                 </div>
+                
                 <!--start Trash Task tab-->
                 <h1>Available Courses</h1>
                 <div class="row">
@@ -184,15 +168,11 @@
                                     <td th:text="${task.content}"></td>
                                     <td th:hidden="${task.id}"></td>
                                     <td align="center">
-                                        
                                         &nbsp; &nbsp;
-                                        <a data-toggle="modal" data-target="#modal-toTrash"
-                                           th:attr="data-target='#modal-toTrash'+${task.id}">
-                                            <inline>Register  </inline>
-                                            <span class="glyphicon glyphicon-download" data-toggle="tooltip"
-                                                  data-placement="top" title="Sent to Trash Box">
-                                            </span>
-                                        </a>
+                                        <button><a data-toggle="modal" data-target="#modal-toTrash"
+                                           th:attr="data-target='#modal-toTrash'+${task.id}" id="registerButton">
+                                            Register
+                                        </a></button>
                                     </td>
                                     <!--start send to trash modal-->
                                     <div class="modal modal-toTrash" th:id="modal-toTrash+${task.id}">
@@ -210,13 +190,12 @@
                                                         
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                                    <button data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
-                                                    <span class="btn btn-danger" value="delete">Register</span></a>
-                                                   
-                                                    
+                                                    <button>
+                                                    <a id="registerButton" th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
+                                                    Register</a></button>
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
@@ -225,13 +204,10 @@
                                     </div>
                                     <!--end send to trash modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
-
                     </div>
-
                 </div>
                 <!--end Trash task tab-->
             </div>
@@ -300,9 +276,9 @@
                                                         Cancel
                                                         
                                                     </button>
-                                                    <a th:href="@{/task/delete/{id}(id=${task.id})}">
-                                                        <span class="btn btn-danger" value="delete">Delete</span></a>
-
+                                                    <button>
+                                                    <a id="registerButton" th:href="@{/task/delete/{id}(id=${task.id})}">
+                                                        <span class="btn btn-danger" value="delete">Delete</span></a></button>
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
@@ -311,16 +287,13 @@
                                     </div>
                                     <!--end delete modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <footer>
