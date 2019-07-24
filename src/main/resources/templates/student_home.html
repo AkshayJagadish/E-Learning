@@ -20,8 +20,11 @@
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
-                    <h1 class="content-title">Profile</h1><div align="right"><a th:href="@{/student/home/editProfile}">[Edit Profile]</a></div>
-                    
+                    <h1 class="content-title">Profile</h1>
+                    <div class="editProfile" align="right">
+                    <a id="editProfileLink" th:href="@{/student/home/editProfile}">Edit Profile</a>
+                    </div>
+                 
                     <div class="card">
 					  <h1><span style="display:none" id="sp" th:text="${encodedimg}"></span></h1>
                       <img style="width:150px;height:150px" id="ItemPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="No profile photo"/>
@@ -115,7 +118,7 @@
                                     <span th:if="${taskorig.id == task.course_id}" th:text="${user.username}"></span></div></div></div></td>
                                     <td th:text="${task.username}"></td>
                                     <td th:hidden="${task.id}"></td>
-                                    <td><a th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.course_id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
+                                    <td><a id="viewCourseLink"th:href="@{/student/home/ViewCourse/{course_id} (course_id=${task.course_id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
                                      
                                     
                                     <!--start send to trash modal-->

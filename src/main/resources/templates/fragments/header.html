@@ -56,14 +56,12 @@
                             Home
                         </a>
                     </li>
-                    
-                    
-
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a>
-                        <h6 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h6>
-                    </a>
+                    <li>
+	                    <a>
+	                        <h6 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h6>
+	                    </a>
                     </li>
                     <li>
                         <a>
@@ -79,6 +77,5 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-
 </body>
 </html>

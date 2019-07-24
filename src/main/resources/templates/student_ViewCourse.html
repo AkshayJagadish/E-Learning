@@ -5,37 +5,29 @@
     <meta name="description" content="spring-boot thymeleaf | home ">
     <div th:replace="fragments/header :: header-css"></div>
     <link rel="stylesheet" href="/css/profileCard.css">
+    <link rel="stylesheet" href="/css/courseVideoPage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-<div th:replace="fragments/header :: header"></div>
-
-<div class="tab-content">
-
-
-    <div class="tab-pane active" id="addTaskTab">
-        <div class="container">
-            <div class="content-container clearfix">
-                <div class="row" style="position:relative">
-<span th:each="vid : ${AllVids}" th:if="${vid.CourseId == contextcourse.id}">
-	<br>
-	<br>
-	<span th:text="${vid.youDes}"></span>
-	<br>
-	<span><iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{url}(url=${vid.youID})}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe></span><br>
-	
-</span>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-
+	<div th:replace="fragments/header :: header"></div>
+		<div class="tab-content">
+			<div class="tab-pane active" id="addTaskTab">
+       			<div class="container">
+           			<div class="content-container clearfix">
+               			<div class="row" style="position:relative">
+							<span th:each="vid : ${AllVids}" th:if="${vid.CourseId == contextcourse.id}">
+								<div class="courseName"><h1><span th:text="${vid.CourseName}"></span></h1></div>
+								<br>
+								<span><iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{url}(url=${vid.youID})}"   frameborder="0" alt="no video attached" allowfullscreen="1"></iframe></span>
+								<br>
+								<div class="courseDescription"><h3>Course Description</h3></div>
+								<span th:text="${vid.youDes}"></span>
+								<br>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

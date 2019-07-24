@@ -4,6 +4,7 @@
     <title>Login</title>
     <meta name="description" content="spring-boot thymeleaf | Login ">
     <div th:replace="fragments/header :: header-login-css"></div>
+    <link rel="stylesheet" href="../static/css/loginPage.css">
 </head>
 <body>
 <br/>
@@ -16,9 +17,6 @@
                 <li class="active col-xs-4"><a href="#login" data-toggle="tab">Login</a></li>
                 <li class="col-xs-4"><a th:href="@{/tutor/register}">Register as Tutor</a></li>
                 <li class="col-xs-4"><a th:href="@{/student/register}">Register as Student</a></li>
-                
-                
-                
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="login">
