@@ -13,22 +13,23 @@
 <div th:replace="fragments/header :: header"></div>
 
 <div class="tab-content">
-
-
     <div class="tab-pane active" id="addTaskTab">
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
-                    <h1 class="content-title">Profile</h1><div align="right"><a th:href="@{/tutor/home/editProfile}">[Edit Profile]</a></div>
+					<div class="pageTitle">                
+                    	<h1 class="content-title">Profile</h1>
+                    </div>
+                    <div class="editProfile" align="right">
+                    	<a id="editProfileLink" th:href="@{/tutor/home/editProfile}">Edit Profile</a>
+                    </div>
                    <!--   <a th:href="@{/tutor/home/changeprofpic}">[Change Profile Picture]</a>-->
                    
                    <h1><span style="display:none" id="sp" th:text="${encodedimg}"></span></h1>
                     <img style="width:150px;height:150px" id="ItemPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ" alt="No profile photo" />
                     <h1><span style="display:none" id="sp1" th:text="${imgurl}"></span></h1>
                     
-                    
                     <script>
-                   	
                     var str=document.getElementById("sp").innerHTML;
                    	if(str==="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnsc8MQmbclux6bpg6rdwC9Gx1jw3o0xgSyn8-eLUVtdkZOm4AFQ")
                    		{}
@@ -36,25 +37,22 @@
                    		{
                     document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
                    		}
-                    
                     </script>
                    
- 
-                    
-                    <div class="card">
-					  <h1><span th:text="${allUser.username}"></span></h1>
+                    <div class="user-details">
+					  <h3><span th:text="${allUser.username}"></span></h3>
 					  <span th:text="${allUser.email}"></span>
-					  
-					  
-					  <br>
-  					<h2>Create a course</h2>
+					</div>
+					<div class="tableHead">
+					  	<h2>Create a new course </h2>
 					</div>
                     <!--star operations messages-->
                     <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert"
                                 aria-hidden="true">&times;
                         </button>
-                        Course Saved <strong> Successfully</strong>
+                        Course Saved 
+                        <strong> Successfully</strong>
                     </div>
                     <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert"
@@ -88,7 +86,6 @@
                                        required="required"
                                        placeholder="Course Name"/>
                             </div>
-                            
                             <div class="form-group">
                                 <input th:field="*{description}" type="text" class="form-control" required="required"
                                        placeholder="Description"/>
@@ -107,7 +104,7 @@
                             <textarea class="form-control" th:field="*{content}" placeholder="Details"
                                       required="required"></textarea>
                             <div class="float-right btn-send">
-                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                <button><span class="glyphicon glyphicon-send"></span>
                                     Create
                                 </button>
                             </div>
@@ -128,6 +125,7 @@
                                     <th>Course Date</th>
                                     <th>Details</th>
                                     <th>Operation</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -139,8 +137,7 @@
                                     <td th:text="${task.description}"></td>
                                     <td th:text="${task.taskDate}"></td>
                                     <td th:text="${task.content}"></td>
-                                    <td th:hidden="${task.id}"></td>
-                                    
+                                    <td th:hidden="${task.id}"></td>  
                                     <td align="center">
                                         <a th:href="@{/tutors/home/task/edit/{id}(id=${task.id})}">
                                             <span class="glyphicon glyphicon-edit" data-toggle="tooltip"
@@ -166,19 +163,16 @@
                                                         delete this task ?</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                                    <button style="float:right;left:5px" data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <a th:href="@{/tutors/home/task/delete/{id}(id=${task.id})}">
-                                                        <span class="btn btn-danger" value="delete">Delete</span></a>
+                                                    <button style="float:right;right:5px"th:href="@{/tutors/home/task/delete/{id}(id=${task.id})}">
+                                                        Delete
+                                                     </button>
 												   <td>
-												   <a th:href="@{/tutors/home/ViewCourse/{course_id} (course_id=${task.id})}"><p style="font-size:13px;"><u>click here to view course</u></p></a>
+													   <button><a id="viewCourseLink" th:href="@{/tutors/home/ViewCourse/{course_id} (course_id=${task.id})}">Go to course</a></button>
+													   <button><a id="viewCourseLink" th:href="@{/tutors/home/task/editTask/addVidTutorials/{id}(id=${task.id})}">Add video</a></button>
 												   </td>
-												   <td>
-                                					<a th:href="@{/tutors/home/task/editTask/addVidTutorials/{id}(id=${task.id})}" class="fa fa-arrow-right pull-right"> Click Here to add Video Tutorials for this course</a>
-                            						
-                            						</td>
-												
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
@@ -187,13 +181,10 @@
                                     </div>
                                     <!--end send to trash modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
-
                     </div>
-
                 </div>
                 <!--end Trash task tab-->
             </div>
@@ -207,9 +198,7 @@
                 <div class="col-md-12">
                     <h1 class="content-title">Trash</h1>
                     <input type="search" placeholder="Search Course" class="form-control mail-search"/>
-
                     <div class="panel panel-info">
-
                         <div class="panel-body">
                             <table class="table table-bordered table-striped table-responsive">
                                 <thead>
@@ -241,7 +230,6 @@
                                            th:attr="data-target='#modal-delete'+${task.id}">
                                             <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
                                                   data-placement="top" title="Delete Permanently"></span></a>
-
                                     </td>
                                     <!--start permanently delete modal-->
                                     <div class="modal modal-delete" th:id="modal-delete+${task.id }">
@@ -264,7 +252,6 @@
                                                     </button>
                                                     <a th:href="@{/task/delete/{id}(id=${task.id})}">
                                                         <span class="btn btn-danger" value="delete">Delete</span></a>
-
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
@@ -273,16 +260,13 @@
                                     </div>
                                     <!--end delete modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <footer>

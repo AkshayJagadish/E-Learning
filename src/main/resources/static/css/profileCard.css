@@ -89,5 +89,32 @@
 		  border-radius: 0 5px 5px 0;  
 		}
 
-		
+	img{
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	
+	.tableHead{
+		background-color: #319EC8;
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		text-align: center;
+		border-radius: 10px
+	}
+	
+	.pageTitle{
+		background-color: #319EC8;
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		text-align: center;
+		border-radius: 10px
+	}
+	h1, h2{
+		color: white
+	}
+	
+	.user-details{
+		position: absolute;
+		float: left;
+		left: 170px;
+		top: 35px
+	}
+	
 </style>

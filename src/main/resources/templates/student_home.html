@@ -17,7 +17,9 @@
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
-                    <h1 class="content-title">Profile</h1>
+                	<div class="pageTitle">
+                    	<h1 class="content-title">Profile</h1>	
+                    </div>
                     <div class="editProfile" align="right">
                     	<a id="editProfileLink" th:href="@{/student/home/editProfile}">Edit Profile</a>
                     </div>
@@ -31,11 +33,15 @@
 	                    	document.getElementById("ItemPreview").src = "data:image/png;base64," + str;
 	                    }
 	                  </script>
-                      <h1><span th:text="${allUser.username}"></span></h1>
-					  <span th:text="${allUser.email}"></span>
+	                  <div class="user-details">
+	                      <h3><span th:text="${allUser.username}"></span></h3>
+						  <span th:text="${allUser.email}"></span>
+					  </div>
 					  <br>
 					  <br>
-					  <h1>Registered Courses</h1>
+					  <div class="tableHead">
+					  	<h2>Registered Courses</h2>
+					  </div>
 					</div>
                     <!--star operations messages-->
                     <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
@@ -122,10 +128,10 @@
                                                         register for this course?</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button data-dismiss="modal" aria-hidden="true">
+                                                    <button style="float:right;left:5px" data-dismiss="modal" aria-hidden="true">
                                                         Cancel
                                                     </button>
-                                                    <button>
+                                                    <button style="float:right;right:5px">
                                                     <a id="registerButton" th:href="@{/student/home/CourseReg/{course_id} (course_id=${task.id})}" th:action="@{/reg/saveReg}">
                                                         Register</a></button>
                                                 </div>
@@ -143,7 +149,9 @@
                 </div>
                 
                 <!--start Trash Task tab-->
-                <h1>Available Courses</h1>
+                <div class="tableHead">
+                	<h2>Available Courses</h2>
+                </div>
                 <div class="row">
                     <div class="panel panel-info">
                         <div class="panel-body">

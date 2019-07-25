@@ -26,78 +26,59 @@
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                   
                                 </tr>
                                 </thead>
                                 <tbody>
-                                
                                 <tr th:each="User : ${currUser}">
                                     <td th:text="${User.username}"></td>
                                     <td th:text="${User.email}"></td>
                                     <td th:text="${User.role}"></td>
-                                    
-
                                     </td>
-                                    <!--start permanently delete modal-->
-                                    
-                                    <!--end delete modal-->
                                 </tr>
-
-                                </tbody>
+                               </tbody>
                             </table>
-                            
                             <form th:object="${currUser}" th:action="@{/tutor/home/user/currUser}" method="post" enctype="multipart/form-data">
-                         <input type="hidden" th:field="*{id}" th:value="*{id}"/>
-                        <div class="col-md-12">
-                            
-							<div class="form-group">
-                                <input th:field="*{Username}" type="text" class="form-control"
-                                       required="required"
-                                       placeholder="Username"/>
-                            </div>
-                            <div class="form-group">
-                                <input th:field="*{email}" type="text" class="form-control"
-                                       required="required"
-                                       placeholder="Email"/>
-                            </div>
-                            <div class="form-group">
-                                <input readonly th:field="*{role}" type="hidden" class="form-control"
-                                       required="required"
-                                       placeholder="Role"/>
-                            </div>
-                            
-                             <div class="form-group">
-                                <input readonly th:field="*{password}" type="hidden" class="form-control"
-                                       required="required"
-                                       placeholder="Password"/>
-                            </div>
-                            Upload Profile picture
-                            <div class="form-group">
-                                <input id="files" name="files" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
-                            </div>
-                         	 
-                            
-                        </div>
-                        <br/>
-                        <div class="modal-footer">
-                            <div>
-                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                                    Update
-                                </button>
-                            </div>
-                            <br/>
-                            <div>
-                                <a th:href="@{tutors/home}" class="fa fa-arrow-left pull-right"> Back</a>
-                            </div>
-                        </div>
-                    </form>
+                         		<input type="hidden" th:field="*{id}" th:value="*{id}"/>
+		                        <div class="col-md-12">
+									<div class="form-group">
+		                                <input th:field="*{Username}" type="text" class="form-control"
+		                                       required="required"
+		                                       placeholder="Username"/>
+		                            </div>
+		                            <div class="form-group">
+		                                <input th:field="*{email}" type="text" class="form-control"
+		                                       required="required"
+		                                       placeholder="Email"/>
+		                            </div>
+		                            <div class="form-group">
+		                                <input readonly th:field="*{role}" type="hidden" class="form-control"
+		                                       required="required"
+		                                       placeholder="Role"/>
+		                            </div>
+		                            <div class="form-group">
+		                                <input readonly th:field="*{password}" type="hidden" class="form-control"
+		                                       required="required"
+		                                       placeholder="Password"/>
+		                            </div>
+		                            Upload Profile picture
+		                            <div class="form-group">
+		                                <input id="files" name="files" th:type="file" size="50" class="form-control" placeholder="Profile picture"/>
+		                            </div>
+		                        </div>
+		                        <br/>
+		                        <div class="modal-footer">
+	                            <div>
+	                                <button class="button">Update</button>
+	                            </div>
+	                            <button th:href="@{/student/home}" class="back" align="right">Back</button>
+	                        </div>
+                    	</form>
                     </div>
                  </div>
               </div>
            </div>
          </div>
       </div>
-  </div>
-                    
+  </div>           
 </body>
 </html>
