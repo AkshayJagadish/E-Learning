@@ -3,6 +3,7 @@
 <head>
     <title>Edit</title>
     <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="/css/profileCard.css">
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
@@ -71,13 +72,13 @@
                         <br/>
                         <div class="modal-footer">
                             <div>
-                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                <button style="float:right"><span class="glyphicon glyphicon-send"></span>
                                     Update
                                 </button>
                             </div>
                             <br/>
                             <div>
-                                <a th:href="@{/task/editTask/addVidTutorials/{id}(id=${editTask.id})}" class="fa fa-arrow-right pull-right"> Click Here to add Video Tutorials for this course</a>
+                                <button style="float:right;right:5px"><a id="editProfileLink" th:href="@{/task/editTask/addVidTutorials/{id}(id=${editTask.id})}" style="font-size:15px">Add Video</a></button>
                             </div>
                         </div>
                     </form>

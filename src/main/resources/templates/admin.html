@@ -20,14 +20,9 @@
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
 					<h1>	Welcome <tr th:each="Inst : ${allUser}"><td th:text="${Inst.username}"></td></tr>! (Admin)</h1>  <!--  <tr th:each="Inst : ${allinst}"><td th:text="${Inst.username}"></td></tr>     -->            
-                    <h2><a th:href="@{/admin/course_manager}">	    Manage Courses</a></h2>
-                    <h2><a th:href="@{/admin/users_manager}">	    Manage Users</a></h2>
-                    <h2><a th:href="@{/admin/registered_courses}">	    Manage Registered Courses</a></h2>
-               
-                                   
-
-        
-                  
+                    <a th:href="@{/admin/course_manager}"><img src="../assets/courses.png" alt="Manage courses Link" style="height:150px;width:150px"/></a>
+                    <a th:href="@{/admin/users_manager}"><img src="../assets/images.jfif" alt="Manage users Link" style="height:150px;width:150px"/></a>
+                    <a th:href="@{/admin/registered_courses}"><img src="../assets/exo-courses.jpg" alt="Manage registered courses Link" style="height:150px;width:150px"/></a>
                 </div>
             </div>
         </div>

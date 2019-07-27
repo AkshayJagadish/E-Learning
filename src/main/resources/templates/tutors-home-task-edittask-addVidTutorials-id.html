@@ -19,7 +19,8 @@
                 <div class="row" style="position:relative">
 					<h3>Paste the link of a video tutorial from youtube.</h3>
 					<form action="javascript:youtube_parser()"><input type="text" id="url"></input>
-						<button>Extract ID</button>
+						<br>
+						<button style="float:left">Extract ID</button>
 					</form>
 
 					<form th:object="${reqVid}" th:action="@{/task/saveVid}" method="post">
@@ -51,8 +52,8 @@
                                        placeholder="Youtube Video Description"/>      
                             </div>         
                             <div class="float-right btn-send">
-                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                                    Upload Video Tutorial
+                                <button><span class="glyphicon glyphicon-send"></span>
+                                    Upload
                                 </button>
                             </div>
                         </div>
