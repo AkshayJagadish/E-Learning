@@ -6,6 +6,14 @@
     <div th:replace="fragments/header :: header-css"></div>
     <link rel="stylesheet" href="/css/profileCard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    	#editButton {
+		  text-decoration: none;
+		  font-size: 16px;
+		  color: white;
+		}
+
+    </style>
 </head>
 <body>
 <a th:href="@{/home/courses}">Courses</a>
@@ -19,10 +27,13 @@
         <div class="container">
             <div class="content-container clearfix">
                 <div class="row" style="position:relative">
-					<h1>	Welcome <tr th:each="Inst : ${allUser}"><td th:text="${Inst.username}"></td></tr>! (Admin)</h1>  <!--  <tr th:each="Inst : ${allinst}"><td th:text="${Inst.username}"></td></tr>     -->            
-                    <a th:href="@{/admin/course_manager}"><img src="../assets/courses.png" alt="Manage courses Link" style="height:150px;width:150px"/></a>
-                    <a th:href="@{/admin/users_manager}"><img src="../assets/images.jfif" alt="Manage users Link" style="height:150px;width:150px"/></a>
-                    <a th:href="@{/admin/registered_courses}"><img src="../assets/exo-courses.jpg" alt="Manage registered courses Link" style="height:150px;width:150px"/></a>
+					<h1>	Welcome <tr th:each="Inst : ${allUser}"><td th:text="${Inst.username}"></td></tr>! (Admin)</h1>
+					<div class=pageTitle style="margin-bottom:30px">
+						<h1 align="middle"> Management Panel</h1>
+					</div>            
+                    <button><a id="editButton" th:href="@{/admin/course_manager}">Courses</a></button>
+                    <button><a id="editButton" th:href="@{/admin/users_manager}">Users</a></button>
+                    <button><a id="editButton" th:href="@{/admin/registered_courses}">Registered</a></button>
                 </div>
             </div>
         </div>
