@@ -36,7 +36,7 @@
                     </div>
 
                     <!--/*@thymesVar id="todoForm" type="java"*/-->
-                    <form th:object="${editTask}" th:action="@{/task/editTask}" method="post">
+                    <form th:object="${editTask}" th:action="@{/admin/task/editTask}" method="post">
                         <input type="hidden" th:field="*{id}" th:value="*{id}"/>
                         <input type="hidden" th:field="*{userId}" th:value="*{userId}"/>
                         <input type="hidden" th:field="*{status}" th:value="*{status}"/>

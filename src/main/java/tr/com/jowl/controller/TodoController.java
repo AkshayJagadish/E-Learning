@@ -234,13 +234,15 @@ public class TodoController {
     
     @RequestMapping(value = {"/admin/task/editTask"}, method = RequestMethod.POST)
     public String AdmineditTask(@ModelAttribute("editTask") Task editTask, Model model) {
-        logger.info("/task/editTask");
+        logger.info("CONTROLLER USED");
         model.addAttribute("contextcourse", taskService.findById(editTask.getId()));
         try {
             Task task = taskService.findById(editTask.getId());
             if (!task.equals(editTask)) {
                 taskService.update(editTask);
                 model.addAttribute("msg", "success");
+                return "admin";
+
             } else {
                 model.addAttribute("msg", "same");
             }
@@ -249,7 +251,7 @@ public class TodoController {
             logger.error("editUser: " + e.getMessage());
         }
         model.addAttribute("editTodo", editTask);
-        return "course_manager";
+        return "admin";
     }
     
     
@@ -426,6 +428,8 @@ public class TodoController {
         } else if (operation.equals("edit")) {
             Task editTask = taskService.findById(id);
             if (editTask != null) {
+                logger.info("edit task entered");
+
                 model.addAttribute("editTask", editTask);
                 return "admin-course_manager-task-edit-id";
             } else {
